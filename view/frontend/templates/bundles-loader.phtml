@@ -1,0 +1,40 @@
+<?php
+/** @var \Jakhotiya\Bundling\Block\BundlesLoader $block */
+
+$commonBundleUrl = $block->getCommonBundleUrl();
+$pageBundlesUrls = $block->getPageBundlesUrls();
+$prefetchBundlesUrls = $block->getPrefetchBundlesUrls();
+?>
+
+<?php if ($commonBundleUrl): ?>
+    <script type="text/javascript"  src="<?= $commonBundleUrl; ?>"></script>
+<?php endif; ?>
+
+<?php foreach($pageBundlesUrls as $pageBundleUrl): ?>
+    <script type="text/javascript"  src="<?= $pageBundleUrl; ?>"></script>
+<?php endforeach; ?>
+
+<?php if (!empty($prefetchBundlesUrls)): ?>
+<script>
+(function(root, doc) {
+    var headElement,
+        bundleLink,
+        bundleUrls = <?= json_encode($prefetchBundlesUrls); ?>,
+        idleCallback = root.requestIdleCallback || root.setTimeout;
+    // Prefetch all bundles via link tags when browser gets idle.
+    if (headElement = doc.querySelector('head')) {
+        root.addEventListener('load', function() {
+            idleCallback(function() {
+                bundleUrls.forEach(function(bundleUrl) {
+                    bundleLink = doc.createElement('link');
+                    bundleLink.rel = 'prefetch';
+                    bundleLink.as = 'script';
+                    bundleLink.href = bundleUrl;
+                    headElement.appendChild(bundleLink);
+                });
+            });
+        });
+    }
+}(window, document))
+</script>
+<?php endif; ?>

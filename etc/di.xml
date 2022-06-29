@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Deploy\Package\BundleInterface" type="Jakhotiya\Bundling\Package\Bundle\RequireJs"/>
+    <preference for="Magento\Deploy\Service\Bundle" type="Jakhotiya\Bundling\Service\Bundle"/>
+    <type name="Magento\RequireJs\Model\FileManager">
+        <plugin name="bundle_pool_create" type="Jakhotiya\Bundling\Plugin\Bundling"/>
+    </type>
+</config>
