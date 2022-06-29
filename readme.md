@@ -5,7 +5,7 @@ Working on it
 working on it
 
 ## Installation and Usage
-working on it
+`composer require jakhotiya/module-bundling`
 
 ## Acknowledgments
 * Authors of Advanced JavaScript bundling guide.
